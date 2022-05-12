@@ -1,0 +1,37 @@
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'io.debezium:debezium-api:1.9.2.Final'
+    implementation 'io.debezium:debezium-embedded:1.9.2.Final'
+    implementation 'io.debezium:debezium-connector-postgres:1.9.2.Final'
+    implementation 'org.slf4j:slf4j-api:1.7.36'
+    implementation 'org.slf4j:slf4j-simple:1.7.36'
+//    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+//    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+//test {
+//    useJUnitPlatform()
+//}
+
+// override jar task to build fat jar
+jar {
+    manifest {
+        attributes "Main-Class": "com.example.experimentdebeziumengine.Main"
+    }
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+
+    duplicatesStrategy "exclude"
+}

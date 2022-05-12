@@ -1,0 +1,4 @@
+# Ignore everything in this directory. Debezium will write the offset file here.
+*
+# Except this file
+!.gitignore
